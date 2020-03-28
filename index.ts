@@ -1,4 +1,4 @@
-import ode_rk4, { Integrator } from "ode-rk4";
+import { Integrator } from "./src/intergrator";
 import { writeFile } from "fs";
 
 const b: number = 0.4;
@@ -18,14 +18,14 @@ function clone(x: number[]): number[] {
     return Object.assign({}, x);
 }
 
-function sirModel(dydt: number[], y: number[]) {
+function sirModel(dydt: number[], y: number[], t: number) {
     dydt[0] = -b / n * y[0] * y[1];
     dydt[1] = b / n * y[0] * y[1] - g * y[1];
     dydt[2] = g * y[1];
 }
 
-function simulateDisease(callback: (dydt: number[], y: number[]) => void, initialT: number, initialY: number[]): SimulationResult {
-    let intergrator: Integrator = ode_rk4(initialY, callback, initialT, step);
+function simulateDisease(callback: (dydt: number[], y: number[], t: number) => void, initialT: number, initialY: number[]): SimulationResult {
+    let intergrator: Integrator = new Integrator(callback, initialY, initialT, step);
     let t: number = initialT;
     let y: number[] = initialY;
     let ta: number[] = [];

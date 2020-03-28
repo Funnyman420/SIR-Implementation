@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const ode_rk4_1 = __importDefault(require("ode-rk4"));
+const intergrator_1 = require("./src/intergrator");
 const fs_1 = require("fs");
 const b = 0.4;
 const g = 0.02;
@@ -14,13 +11,13 @@ const n = 1.0;
 function clone(x) {
     return Object.assign({}, x);
 }
-function sirModel(dydt, y) {
+function sirModel(dydt, y, t) {
     dydt[0] = -b / n * y[0] * y[1];
     dydt[1] = b / n * y[0] * y[1] - g * y[1];
     dydt[2] = g * y[1];
 }
 function simulateDisease(callback, initialT, initialY) {
-    let intergrator = ode_rk4_1.default(initialY, callback, initialT, step);
+    let intergrator = new intergrator_1.Integrator(callback, initialY, initialT, step);
     let t = initialT;
     let y = initialY;
     let ta = [];

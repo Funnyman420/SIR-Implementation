@@ -9,7 +9,7 @@
   "author": "Michale Georgiadis",
   "license": "ISC",
   "dependencies": {
-    "ode-rk4": "^1.1.3"
+    "@types/node": "^13.9.5"
   },
   "devDependencies": {}
 }
